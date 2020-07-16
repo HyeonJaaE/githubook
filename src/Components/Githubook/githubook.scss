@@ -1,0 +1,201 @@
+@mixin breakpoint($breakpoint) {
+    @if $breakpoint == "small" {
+      @media (min-width: 700px) {
+        @content;
+      }
+    }
+  
+    @else if $breakpoint == "medium" {
+      @media (min-width: 900px) {
+        @content;
+      }
+    }
+  
+    @else if $breakpoint == "large" {
+      @media (min-width: 1024px) {
+        @content;
+      }
+    }
+}
+
+#githubook-container{
+    min-height: 100vh;
+    box-sizing: border-box;
+    a{
+        text-decoration: none;
+        color: black;
+    }
+}
+
+//nav==============================================================================
+#githubook-nav{
+    position: sticky;
+    display:flex;
+    justify-content: space-between;
+    top:0;
+    height: 60px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 1.5px gray;
+    z-index:10;
+}
+
+#githubook-nav-side-l{
+    display:flex;
+    padding: 15px;
+    align-items: center;
+    width: 20vw;
+    @include breakpoint("large"){
+        width: 25vw;
+    }
+}
+
+#githubook-nav-main{
+    display: none;
+    @include breakpoint("small"){
+        display: flex;
+        justify-content: center;
+        width: 50vw;
+    }
+    ul{
+        margin: 0px;
+        width: 35vw;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style-type: none;
+    }
+}
+
+#githubook-nav-side-r{
+    width: 25vw;
+    
+}
+
+#githubook-search{
+    height: 40px;
+    label{
+        display: flex;
+        z-index:11;
+    }
+    #q-icon{
+        cursor: pointer;
+    }
+    #q{
+        position: absolute;
+        margin: 3px;
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        transition: 0.05s linear;
+        @include breakpoint("large"){
+            width: 10vw;
+        }
+    }
+
+    label:focus{
+        #q{
+            width:100px;
+            border-radius: 15%;
+        }
+        #q-icon{
+            display:none;
+        }
+    }
+}
+
+//main body==========================================================================
+#githubook-body{
+    height: calc( 100vh - 60px);
+    background-color: #F0F2F5;
+    display:flex;
+    justify-content: center;
+    @include breakpoint("medium"){
+        justify-content: space-between;
+    }
+}
+
+#githubook-side-l{
+    padding: 5px;
+    display:none;
+    overflow: scroll;
+    @include breakpoint("large"){
+        display:block;
+        width: 25vw;
+    }
+}
+
+#githubook-main{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+    width: 75vw;
+    .githubook-card{
+        min-height: 400px;
+        margin-top: 30px;
+        border-radius: 8px;
+        border: 0.4px solid rgb(191, 191, 191);
+        background-color: #FFFFFF;
+        width: 70vw;
+        @include breakpoint("medium"){
+            width: 50vw;
+        }
+        @include breakpoint("large"){
+            width: 30vw;
+        }
+    }
+}
+
+#githubook-side-r{
+    display: none;
+    overflow: scroll;
+    @include breakpoint("medium"){
+        display: flex;
+        flex-direction: column;
+        width: 25vw;
+    }
+    .madeinfo{
+        margin: 10px;
+        h1{
+            font-size: 20px;
+        }
+        .madeinfo-content{
+            div{
+                display:flex;
+                align-items: center;
+                height: 100px;
+            }
+            img{
+                width: 75px;
+                height: 75px;
+            }
+        }
+    }
+    .followers{
+        margin: 10px;
+    }
+}
+
+//menubox======================================================================
+.githubook-menubox{
+    display: flex;
+    align-items:center;
+    width: 90%;
+    height: 40px;
+    margin: 5px;
+    padding: 5px;
+    &:hover{
+        cursor: pointer;
+        background-color: rgba(196, 196, 196, 0.68);
+        border-radius: 10px;
+    }
+    .githubook-menubox-icon{
+        img{
+            width: 30px;
+            height: 30px;
+        }
+    }
+    .githubook-menubox-text{
+        margin-left: 15px;
+    }
+}

@@ -1,0 +1,21 @@
+#home-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: ghostwhite;
+  input{
+    margin: 15px;
+    width: 300px;
+  }
+}
+
+#home-login{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 400px;
+  border: 1px solid;
+}
