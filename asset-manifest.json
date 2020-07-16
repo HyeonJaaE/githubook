@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/githubook/static/css/main.12fd7e99.chunk.css",
+    "main.js": "/githubook/static/js/main.12add53b.chunk.js",
+    "main.js.map": "/githubook/static/js/main.12add53b.chunk.js.map",
+    "runtime-main.js": "/githubook/static/js/runtime-main.2c14a14a.js",
+    "runtime-main.js.map": "/githubook/static/js/runtime-main.2c14a14a.js.map",
+    "static/css/2.829c9cb5.chunk.css": "/githubook/static/css/2.829c9cb5.chunk.css",
+    "static/js/2.ba02c047.chunk.js": "/githubook/static/js/2.ba02c047.chunk.js",
+    "static/js/2.ba02c047.chunk.js.map": "/githubook/static/js/2.ba02c047.chunk.js.map",
+    "index.html": "/githubook/index.html",
+    "precache-manifest.da0059449475a1a4e1b32034c7858964.js": "/githubook/precache-manifest.da0059449475a1a4e1b32034c7858964.js",
+    "service-worker.js": "/githubook/service-worker.js",
+    "static/css/2.829c9cb5.chunk.css.map": "/githubook/static/css/2.829c9cb5.chunk.css.map",
+    "static/css/main.12fd7e99.chunk.css.map": "/githubook/static/css/main.12fd7e99.chunk.css.map",
+    "static/js/2.ba02c047.chunk.js.LICENSE.txt": "/githubook/static/js/2.ba02c047.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2c14a14a.js",
+    "static/css/2.829c9cb5.chunk.css",
+    "static/js/2.ba02c047.chunk.js",
+    "static/css/main.12fd7e99.chunk.css",
+    "static/js/main.12add53b.chunk.js"
+  ]
+}
