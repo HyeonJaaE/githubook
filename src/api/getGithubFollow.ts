@@ -1,12 +1,23 @@
 import axios from "axios";
 
-const getGithubFollower = (username: string| null) => {
-    return axios.get<GithubFollower[]>(
+export const getGithubFollower = (username: string| null) => {
+    return axios.get<GithubFollow[]>(
         `https://api.github.com/users/${username}/followers`
     );
 }
 
-export interface GithubFollower {
+export const getGithubFollowing = (username: string| null) => {
+    return axios.get(`https://api.github.com/user/following`, {
+        headers: {
+          Authorization: `token ${username}`,
+        },
+      })
+    /*return axios.get<GithubFollow[]>(
+        `https://api.github.com/users/${username}/following`
+    );*/
+}
+
+export interface GithubFollow {
     login: string,
     id: number,
     node_id: string,
@@ -26,6 +37,3 @@ export interface GithubFollower {
     type: string,
     site_admin: false
 }
-
-
-export default getGithubFollower;

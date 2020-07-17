@@ -35,7 +35,7 @@
     top:0;
     height: 60px;
     background-color: #FFFFFF;
-    box-shadow: 0px 1.5px gray;
+    border: 0.4px solid rgb(191, 191, 191);
     z-index:10;
 }
 
@@ -54,9 +54,10 @@
     @include breakpoint("small"){
         display: flex;
         justify-content: center;
-        width: 50vw;
+        width: 30vw;
     }
     ul{
+        padding: 0px;
         margin: 0px;
         width: 35vw;
         display:flex;
@@ -130,6 +131,7 @@
     align-items: center;
     overflow: scroll;
     width: 75vw;
+    
     .githubook-card{
         min-height: 400px;
         margin-top: 30px;
@@ -154,11 +156,11 @@
         flex-direction: column;
         width: 25vw;
     }
+    h1{
+        font-size: 20px;
+    }
     .madeinfo{
         margin: 10px;
-        h1{
-            font-size: 20px;
-        }
         .madeinfo-content{
             div{
                 display:flex;
@@ -171,7 +173,7 @@
             }
         }
     }
-    .followers{
+    .following{
         margin: 10px;
     }
 }

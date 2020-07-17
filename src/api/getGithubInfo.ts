@@ -6,7 +6,11 @@ const getGithubInfo =  (username: string| null ) => {
     );*/
 
     return axios.get<GithubProfile>(
-        `https://api.github.com/users/${username}`
+        `https://api.github.com/user` ,  {
+            headers: {
+              Authorization: `token ${username}`,
+            },
+          }
     );
 }
 

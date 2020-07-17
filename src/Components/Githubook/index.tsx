@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import getGithubInfo, { GithubProfile } from "../../api/getGithubInfo";
-import getGithubFollower, { GithubFollower } from "../../api/getGithubFollower";
+import { getGithubFollower, getGithubFollowing, GithubFollow } from "../../api/getGithubFollow";
+import { getGithubEvent, GithubEvent } from "../../api/getGithubEvent";
 import Nav from "../Nav";
 import "./githubook.scss";
 
@@ -18,10 +19,14 @@ const menubox = (image: string, text: string) => {
     );
 };
 
-const card = () => {
+const card = (e: any, idx: number) => {
     return (
-        <div className="githubook-card">
-            <div>card</div>
+        <div key={idx} className="githubook-card">
+            <img src={e.actor.avatar_url} style={{ height: "40px", width: "40px" }}></img>
+            <h2>{e.actor.login}</h2>
+            <h1>{e.type}</h1>
+            <h6>{e.created_at}</h6>
+            <hr />
         </div>
     );
 };
@@ -31,18 +36,38 @@ const Githubook = () => {
 
     const [sideToggle, setSideToggle] = useState(false);
     const [data, setData] = useState<GithubProfile | null>();
-    const [follower, setFollower] = useState<GithubFollower[]>([]);
+    const [following, setFollowing] = useState<GithubFollow[]>([]);
+    const [events, setEvents] = useState<GithubEvent[]>([]);
 
     useEffect(() => {
         getGithubInfo(auth.user).then((info) => {
-            getGithubFollower(String(info.data.login)).then((follower) => {
-                setFollower(follower.data);
-            });
             setData(info.data);
+            getGithubEvent(info.data.login, auth.user).then((e) => {
+                //console.log(e);
+                setEvents((events) => [...events, ...e.data]);
+            });
+            getGithubFollowing(auth.user).then((following) => {
+                setFollowing(following.data);
+
+                following.data.forEach((f: any) => {
+                    getGithubEvent(f.login, auth.user).then((event) => {
+                        setEvents((events) => [...events, ...event.data]);
+                    });
+                });
+            });
         });
     }, []);
 
-    useEffect(() => {});
+    useEffect(() => {
+        setEvents((events) =>
+            events.sort((a, b) => {
+                var foo = new Date(a.created_at),
+                    bar = new Date(b.created_at);
+                return foo > bar ? -1 : 1;
+            })
+        );
+        console.log(events);
+    });
 
     return (
         <div id="githubook-container">
@@ -52,7 +77,7 @@ const Githubook = () => {
                     <div id="githubook-body">
                         <div id="githubook-side-l">
                             {[
-                                [data.avatar_url, data.login, "/"],
+                                [data.avatar_url, data.login, "/githubook"],
                                 [data.avatar_url, "깃허브", data.html_url],
                                 [data.avatar_url, "저장소", data.repos_url],
                                 [data.avatar_url, "팔로워", data.followers_url],
@@ -86,11 +111,8 @@ const Githubook = () => {
                                 </>
                             )}
                         </div>
-                        <div id="githubook-main">
-                            {[1, 2, 3, 4, 5, 4, 1, 5, 135, 135, 13, 5, 135, 13, 53, 5, 3].map(() =>
-                                card()
-                            )}
-                        </div>
+
+                        <div id="githubook-main">{events.map((e, idx) => card(e, idx))}</div>
                         <div id="githubook-side-r">
                             <div className="madeinfo">
                                 <h1>Made By</h1>
@@ -104,17 +126,13 @@ const Githubook = () => {
                                 </div>
                                 <hr />
                             </div>
-                            <div className="followers">
-                                {follower.map((f) => (
-                                    <a
-                                        onClick={() => {
-                                            localStorage.setItem("token", f.login);
-                                            window.location.reload();
-                                        }}
-                                    >
-                                        {menubox(f.avatar_url, f.login)}
-                                    </a>
-                                ))}
+                            <div className="following">
+                                <h1>Following</h1>
+                                <div className="following-content">
+                                    {following.map((f) => (
+                                        <a>{menubox(f.avatar_url, f.login)}</a>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
