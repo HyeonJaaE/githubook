@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import getGithubInfo from "../../api/getGithubInfo";
+import getGithubInfo, { GithubProfile } from "../../api/getGithubInfo";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../actions/authAction";
 
-const Nav = () => {
-    const dispatch = useDispatch();
-
+const Nav = (props: any) => {
     return (
         <div id="githubook-nav">
             <div id="githubook-nav-side-l">
                 <img
-                    src="https://en.followersnet.com/wp-content/uploads/2016/02/Facebook-1.png"
-                    style={{ width: "40px", height: "40px" }}
+                    src="https://img.icons8.com/cotton/40/000000/cat--v3.png"
+                    style={{ width: "35px", height: "35px" }}
                 ></img>
+                {/*
+                
                 <div id="githubook-search">
                     <label htmlFor="q">
                         <div id="q-icon"></div>
@@ -29,30 +29,51 @@ const Nav = () => {
                         ></input>
                     </label>
                 </div>
+                */}
             </div>
             <div id="githubook-nav-main">
-                <ul className="githubook-nav-main-ul">
-                    <li>
-                        <button
-                            onClick={() => {
-                                localStorage.removeItem("token");
-                            }}
-                        >
-                            버튼
-                        </button>
+                <ul
+                    onClick={(e: any) => {
+                        if (e.target.tagName !== "UL")
+                            document.getElementsByClassName("active")[0].classList.toggle("active");
+                        if (e.target.tagName === "IMG") {
+                            props.handleEventType(e.target.parentElement.id);
+                            e.target.parentElement.classList.toggle("active");
+                        }
+                        if (e.target.tagName === "LI") {
+                            props.handleEventType(e.target.id);
+                            e.target.classList.toggle("active");
+                        }
+                    }}
+                    id="githubook-nav-main-ul"
+                    className="githubook-nav-main-ul"
+                >
+                    <li id="All" className="githubook-card-date active">
+                        <img src="https://img.icons8.com/android/24/000000/home.png" />
+                        <span className="githubook-card-date-tooltips">{"All Events"}</span>
                     </li>
-                    <li>
-                        <button>버튼</button>
+                    <li id="PushEvent" className="githubook-card-date">
+                        <img src="https://img.icons8.com/ios/40/000000/commit-git.png" />
+                        <span className="githubook-card-date-tooltips">{"Commits"}</span>
                     </li>
-                    <li>
-                        <button>버튼</button>
+                    <li id="PullRequestEvent" className="githubook-card-date">
+                        <img src="https://img.icons8.com/ios/24/000000/pull-request.png" />
+                        <span className="githubook-card-date-tooltips">{"Pull Requests"}</span>
                     </li>
-                    <li>
-                        <button>버튼</button>
+                    <li id="IssuesEvent" className="githubook-card-date">
+                        <img src="https://img.icons8.com/ios/100/000000/exclamation-mark.png" />
+                        <span className="githubook-card-date-tooltips">{"Issues"}</span>
                     </li>
                 </ul>
             </div>
-            <div id="githubook-nav-side-r"></div>
+            <div id="githubook-nav-side-r">
+                <img
+                    className="mr-2"
+                    src={props.data.avatar_url}
+                    style={{ width: "30px", height: "30px", borderRadius: "50%" }}
+                ></img>
+                <span className="mr-4">{props.data.login}</span>
+            </div>
         </div>
     );
 };

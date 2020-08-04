@@ -5,13 +5,6 @@ import { setCurrentUser } from "./actions/authAction";
 import Home from "./Components/Home";
 import Login from "./Components/Login";
 
-const Test = () => {
-    return (
-        <div>
-            <h1>for react-router</h1>
-        </div>
-    );
-};
 const App = () => {
     const dispatch = useDispatch();
     dispatch(setCurrentUser(localStorage.getItem("token")));
@@ -19,7 +12,6 @@ const App = () => {
         <Router basename={process.env.PUBLIC_URL}>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/test" component={Test} />
         </Router>
     );
 };

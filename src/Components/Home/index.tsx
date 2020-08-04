@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCurrentUser } from "../../actions/authAction";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+
+import { setCurrentUser } from "../../actions/authAction";
 import Githubook from "../Githubook";
 import "./home.scss";
 
@@ -30,6 +30,7 @@ const Home = (props: any) => {
                 .then((res) => {
                     console.log(res);
                     dispatch(setCurrentUser(res.data.access_token));
+                    localStorage.setItem("token", res.data.access_token);
                     props.history.push("/");
                 })
                 .catch((err) => console.log(err));
@@ -41,6 +42,9 @@ const Home = (props: any) => {
                 <Githubook />
             ) : (
                 <div id="home-container">
+                    <a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=http://localhost:3000">
+                        dev
+                    </a>
                     <a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=https://hyeonjaae.github.io/githubook">
                         <img
                             src="https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/276/square_480/github_logo.png"

@@ -1,20 +1,20 @@
 @mixin breakpoint($breakpoint) {
     @if $breakpoint == "small" {
       @media (min-width: 700px) {
-        @content;
-      }
+          @content;
+        }
     }
-  
+    
     @else if $breakpoint == "medium" {
-      @media (min-width: 900px) {
-        @content;
-      }
+        @media (min-width: 900px) {
+            @content;
+        }
     }
-  
+    
     @else if $breakpoint == "large" {
-      @media (min-width: 1024px) {
-        @content;
-      }
+        @media (min-width: 1024px) {
+            @content;
+        }
     }
 }
 
@@ -27,7 +27,7 @@
     }
 }
 
-//nav==============================================================================
+//nav
 #githubook-nav{
     position: sticky;
     display:flex;
@@ -65,11 +65,30 @@
         align-items: center;
         list-style-type: none;
     }
+    li{
+        cursor: pointer;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 5px solid transparent;
+        width:40px;
+        height:60px;
+        transition: 0.5s;
+        img{
+            width: 30px;
+            height: 30px;
+        }
+    }
+    .active{
+        border-bottom: 5px solid black;
+    }
 }
 
 #githubook-nav-side-r{
     width: 25vw;
-    
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 #githubook-search{
@@ -104,7 +123,7 @@
     }
 }
 
-//main body==========================================================================
+//main body
 #githubook-body{
     height: calc( 100vh - 60px);
     background-color: #F0F2F5;
@@ -116,7 +135,7 @@
 }
 
 #githubook-side-l{
-    padding: 5px;
+    padding: 15px;
     display:none;
     overflow: scroll;
     @include breakpoint("large"){
@@ -130,21 +149,9 @@
     flex-direction: column;
     align-items: center;
     overflow: scroll;
-    width: 75vw;
-    
-    .githubook-card{
-        min-height: 400px;
-        margin-top: 30px;
-        border-radius: 8px;
-        border: 0.4px solid rgb(191, 191, 191);
-        background-color: #FFFFFF;
-        width: 70vw;
-        @include breakpoint("medium"){
-            width: 50vw;
-        }
-        @include breakpoint("large"){
-            width: 30vw;
-        }
+    width: 100vw;
+    @include breakpoint("medium"){
+        width: 75vw;
     }
 }
 
@@ -168,6 +175,7 @@
                 height: 100px;
             }
             img{
+                border-radius: 15% !important;
                 width: 75px;
                 height: 75px;
             }
@@ -178,7 +186,7 @@
     }
 }
 
-//menubox======================================================================
+//menubox
 .githubook-menubox{
     display: flex;
     align-items:center;
@@ -193,11 +201,112 @@
     }
     .githubook-menubox-icon{
         img{
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
+        }
+        .circle{
+            border-radius: 50%;
+        }
+        .square{
+            border-radius: 15%;
         }
     }
     .githubook-menubox-text{
         margin-left: 15px;
+    }
+}
+
+
+//card
+.githubook-card{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 0.4px solid rgb(191, 191, 191);
+    background-color: #FFFFFF;
+    width: 85vw;
+    @include breakpoint("medium"){
+        width: 60vw;
+    }
+    @include breakpoint("large"){
+        width: 50vw;
+    }
+}
+
+.githubook-card-title{
+    display: flex;
+    align-items: center;
+    margin: 15px;
+    img{
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+}
+
+.githubook-card-info{
+    display:inline-block;
+    position: relative;
+}
+
+.githubook-card-info-box{
+    padding: 15px;
+    min-width: 400px;
+    position: absolute;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    top: 100%;
+    left: 0%;
+    margin-left: -50px;
+    visibility: hidden;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+    transition-delay: 0.3s;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(71, 71, 71, 0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(71,71,71, 0.75);
+    box-shadow: 0px 0px 5px 0px rgba(71,71,71, 0.75);
+}
+
+.githubook-card-info:hover, .githubook-card-info-box:hover{
+    .githubook-card-info-box{
+        visibility: visible;
+        opacity: 1;
+    }    
+}
+
+.githubook-card-main{
+    white-space:normal;
+    word-break:break-all;
+    min-height: 100px;
+    margin: 15px;
+}
+
+.githubook-card-date{
+    position: relative;
+}
+
+.githubook-card-date-tooltips{
+    display: block;
+    visibility: hidden;
+    min-width: 100px;
+    font-size: 12px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    opacity: 0;
+    transition: opacity 0.3s;
+
+}
+
+.githubook-card-date:hover {
+    text-decoration: underline;
+    .githubook-card-date-tooltips{
+    visibility: visible;
+    opacity: 1;
     }
 }
