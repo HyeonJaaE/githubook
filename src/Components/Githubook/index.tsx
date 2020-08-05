@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import ReactMarkdown from "react-markdown";
 
 import getGithubInfo, { GithubProfile } from "../../api/getGithubInfo";
 import { getGithubFollower, getGithubFollowing, GithubFollow } from "../../api/getGithubFollow";
@@ -40,7 +41,7 @@ const card = (e: any, idx: number) => {
     let dateA = printDate(e.created_at),
         dateB = [dateA[0][1], dateA[0][2], dateA[0][4], dateA[0][5], dateA[0][6], dateA[0][7]];
 
-    console.log(e.payload.issue);
+    //console.log(e.payload.issue);
     return (
         <div key={idx} className="githubook-card">
             <div className="githubook-card-title">
@@ -68,14 +69,27 @@ const card = (e: any, idx: number) => {
                 </div>
             </div>
             <div className="githubook-card-main">
-                - {e.type}
-                <hr />
+                {e.type}
                 {e.type === "PushEvent" && (
-                    //<h5>{JSON.stringify(e.payload.commits[0].message).split('"')[1]}</h5>
-                    <h5>{e.payload.commits[0].message}</h5>
+                    <>
+                        <p className="lead">- {e.payload.ref?.split("/")[2]} branch</p>
+                        <hr />
+                        {e.payload.commits.map((c: any) => (
+                            <ReactMarkdown source={c.message} />
+                        ))}
+                    </>
                 )}
                 {e.type === "IssuesEvent" && (
-                    <h5>{JSON.stringify(e.payload.issue.body).split('"')[1].split("\\r\\n")}</h5>
+                    <>
+                        <hr />
+                        <ReactMarkdown source={e.payload.issue?.body} />
+                    </>
+                )}
+                {e.type === "CreateEvent" && (
+                    <>
+                        <hr />
+                        <ReactMarkdown source={e.payload.description} />
+                    </>
                 )}
             </div>
         </div>
@@ -124,6 +138,7 @@ const Githubook = () => {
                         return foo > bar ? -1 : 1;
                     });
                     setEvents(el);
+                    console.log(el);
                 });
             });
         });

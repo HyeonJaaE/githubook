@@ -279,6 +279,13 @@
     word-break:break-all;
     min-height: 100px;
     margin: 15px;
+    .lead{
+        font-size: 14px;
+    }
+    a{
+        font-weight: 100;
+        color: #1876F2 !important;
+    }
 }
 
 .githubook-card-date{
