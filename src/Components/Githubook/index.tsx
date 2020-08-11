@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import ReactMarkdown from "react-markdown";
 
+import Card from "../Card";
 import getGithubInfo, { GithubProfile } from "../../api/getGithubInfo";
 import { getGithubFollower, getGithubFollowing, GithubFollow } from "../../api/getGithubFollow";
 import { getGithubEvent, GithubEvent } from "../../api/getGithubEvent";
-import printDate from "../../api/printDate";
 
 import Nav from "../Nav";
 import "./githubook.scss";
@@ -23,7 +22,7 @@ const menubox = (image: string, text: string, imgStyle: string) => {
     );
 };
 
-const infoBox = (avatar: string, name: string) => {
+export const infoBox = (avatar: string, name: string) => {
     return (
         <div className="githubook-card-info-box">
             <div>
@@ -37,65 +36,6 @@ const infoBox = (avatar: string, name: string) => {
     );
 };
 
-const card = (e: any, idx: number) => {
-    let dateA = printDate(e.created_at),
-        dateB = [dateA[0][1], dateA[0][2], dateA[0][4], dateA[0][5], dateA[0][6], dateA[0][7]];
-
-    //console.log(e.payload.issue);
-    return (
-        <div key={idx} className="githubook-card">
-            <div className="githubook-card-title">
-                <div>
-                    <span className="githubook-card-info">
-                        <img
-                            src={e.actor.avatar_url}
-                            style={{ height: "40px", width: "40px" }}
-                        ></img>
-                        {infoBox(e.actor.avatar_url, e.actor.login)}
-                    </span>
-                </div>
-                <div>
-                    <div className="mb-0">
-                        <span className="githubook-card-info">
-                            {e.actor.login} &gt;&nbsp; {infoBox(e.actor.avatar_url, e.actor.login)}
-                        </span>
-
-                        <a href={"https://github.com/" + e.repo.name}>{e.repo.name}</a>
-                    </div>
-                    <div className="mb-0 githubook-card-date">
-                        {dateA[1] ? dateA[1] : dateB}
-                        <span className="githubook-card-date-tooltips">{dateA[0]}</span>
-                    </div>
-                </div>
-            </div>
-            <div className="githubook-card-main">
-                {e.type}
-                {e.type === "PushEvent" && (
-                    <>
-                        <p className="lead">- {e.payload.ref?.split("/")[2]} branch</p>
-                        <hr />
-                        {e.payload.commits.map((c: any) => (
-                            <ReactMarkdown source={c.message} />
-                        ))}
-                    </>
-                )}
-                {e.type === "IssuesEvent" && (
-                    <>
-                        <hr />
-                        <ReactMarkdown source={e.payload.issue?.body} />
-                    </>
-                )}
-                {e.type === "CreateEvent" && (
-                    <>
-                        <hr />
-                        <ReactMarkdown source={e.payload.description} />
-                    </>
-                )}
-            </div>
-        </div>
-    );
-};
-
 const Githubook = () => {
     const auth = useSelector((state: any) => state.auth);
 
@@ -104,12 +44,14 @@ const Githubook = () => {
     const [following, setFollowing] = useState<GithubFollow[]>([]);
     const [events, setEvents] = useState<GithubEvent[]>([]);
     const [eventType, setEventType] = useState("All");
+    const [idx, setIdx] = useState(10);
 
     useEffect(() => {
         getGithubInfo(auth.user).then((info) => {
             let eventList: any = [],
                 idx = 0;
 
+            console.log(info.data);
             setData(info.data);
 
             getGithubEvent(info.data.login, auth.user).then((e) => {
@@ -144,8 +86,30 @@ const Githubook = () => {
         });
     }, []);
 
+    const handleEventList = () => {
+        let li = [];
+
+        for (var i = 0; i < events.length; i++) {
+            if (eventType === "All") {
+                if (
+                    events[i].type === "PushEvent" ||
+                    events[i].type === "PullRequestEvent" ||
+                    events[i].type === "IssuesEvent"
+                )
+                    li.push(<Card key={events[i].id} e={events[i]} data={data} />);
+            } else {
+                events[i].type === eventType &&
+                    li.push(<Card key={events[i].id} e={events[i]} data={data} />);
+            }
+
+            if (li.length === idx) break;
+        }
+        return li;
+    };
+
     const handleEventType = (v: any) => {
         setEventType(v);
+        setIdx(10);
     };
 
     return (
@@ -167,19 +131,19 @@ const Githubook = () => {
                                     "https://img.icons8.com/dotty/50/000000/repository.png",
                                     "저장소",
                                     "square",
-                                    data.repos_url,
+                                    data.html_url + "?tab=repositories",
                                 ],
                                 [
                                     "https://img.icons8.com/ios-glyphs/50/000000/pet-commands-follow.png",
                                     "팔로워",
                                     "square",
-                                    data.followers_url,
+                                    data.html_url + "?tab=followers",
                                 ],
                                 [
                                     "https://img.icons8.com/doodle/48/000000/follow--v1.png",
                                     "팔로잉",
                                     "square",
-                                    data.following_url,
+                                    data.html_url + "?tab=followings",
                                 ],
                             ].map((md: any, i) => (
                                 <a key={i} href={md[3]}>
@@ -193,16 +157,18 @@ const Githubook = () => {
                                             "https://img.icons8.com/bubbles/48/000000/list.png",
                                             "Gist",
                                             "square",
-                                            data.gists_url,
+                                            "https://gist.github.com/" + data.login,
                                         ],
                                         [
                                             "https://img.icons8.com/cotton/64/000000/star.png",
                                             "Star",
                                             "square",
-                                            data.starred_url,
+                                            data.html_url + "?tab=stars",
                                         ],
-                                    ].map((md: any) => (
-                                        <a href={md[3]}>{menubox(md[0], md[1], md[2])}</a>
+                                    ].map((md: any, i) => (
+                                        <a key={i + 4} href={md[3]}>
+                                            {menubox(md[0], md[1], md[2])}
+                                        </a>
                                     ))}
                                     <div onClick={() => setSideToggle(sideToggle ? false : true)}>
                                         {menubox(
@@ -226,9 +192,11 @@ const Githubook = () => {
                         </div>
 
                         <div id="githubook-main">
-                            {eventType === "All"
-                                ? events.map((e, idx) => card(e, idx))
-                                : events.map((e, idx) => e.type === eventType && card(e, idx))}
+                            {handleEventList()}
+
+                            <a className="p-4" onClick={() => setIdx(idx + 10)}>
+                                더 보기
+                            </a>
                         </div>
                         <div id="githubook-side-r">
                             <div className="madeinfo">
@@ -249,7 +217,9 @@ const Githubook = () => {
                                 <div className="following-content">
                                     {following.map((f, i) => (
                                         <div key={i} className="">
-                                            <a>{menubox(f.avatar_url, f.login, "circle")}</a>
+                                            <a href={f.html_url}>
+                                                {menubox(f.avatar_url, f.login, "circle")}
+                                            </a>
                                             {infoBox(f.avatar_url, f.login)}
                                         </div>
                                     ))}

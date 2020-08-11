@@ -42,10 +42,10 @@ const Home = (props: any) => {
                 <Githubook />
             ) : (
                 <div id="home-container">
-                    <a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=http://localhost:3000">
+                    {/*<a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=http://localhost:3000&scope=repo">
                         dev
-                    </a>
-                    <a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=https://hyeonjaae.github.io/githubook">
+            </a>*/}
+                    <a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=https://hyeonjaae.github.io/githubook&scope=repo">
                         <img
                             src="https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/276/square_480/github_logo.png"
                             style={{ width: "40px", height: "40px" }}

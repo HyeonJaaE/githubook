@@ -41,7 +41,7 @@
 
 #githubook-nav-side-l{
     display:flex;
-    padding: 15px;
+    padding: 20px;
     align-items: center;
     width: 20vw;
     @include breakpoint("large"){
@@ -280,12 +280,28 @@
     min-height: 100px;
     margin: 15px;
     .lead{
-        font-size: 14px;
+        font-size: 13px;
+        margin:0px;
     }
     a{
         font-weight: 100;
         color: #1876F2 !important;
     }
+}
+
+.githubook-card-comment{
+    display: none;
+    &.active{
+        display: block;
+    }
+}
+
+.githubook-card-commits{
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 0.4px solid rgb(191, 191, 191);
 }
 
 .githubook-card-date{
@@ -316,4 +332,11 @@
     visibility: visible;
     opacity: 1;
     }
+}
+
+#commentBody{
+    background-color: #F0F2F5;
+    border-radius: 10px;
+    border: 0px;
+    padding: 10px;
 }

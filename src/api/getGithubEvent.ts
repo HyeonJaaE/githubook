@@ -1,21 +1,13 @@
 import axios from "axios";
 
 export const getGithubEvent = (username: string| undefined, token: string) => {
-    /*return axios.get<GithubEvent[]>(
-        `https://api.github.com/events` ,  {
-            headers: {
-              Authorization: `token ${username}`,
-            },
-          }
-    )*/
+    const config = {
+        headers: {
+            Authorization: `token ${token}`
+        }
+    }
     
-    return axios.get<GithubEvent[]>(
-        `https://api.github.com/users/${username}/events`,  {
-            headers: {
-              Authorization: `token ${token}`,
-            },
-          }
-    )
+    return axios.get<GithubEvent[]>(`https://api.github.com/users/${username}/events`, config)
 }
 
 export interface GithubEvent {
