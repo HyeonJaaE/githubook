@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2f07133487d9c38ce1a6d55fa3aa0562",
+    "revision": "e3d68e9a770f6238016725a6d2779565",
     "url": "/githubook/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/githubook/static/css/2.829c9cb5.chunk.css"
   },
   {
-    "revision": "4b9a44155357fafe2a87",
+    "revision": "21a267008c5aca6b1e18",
     "url": "/githubook/static/css/main.abafeb88.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/githubook/static/js/2.bdd6c318.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4b9a44155357fafe2a87",
-    "url": "/githubook/static/js/main.6021dec9.chunk.js"
+    "revision": "21a267008c5aca6b1e18",
+    "url": "/githubook/static/js/main.662a6a89.chunk.js"
   },
   {
     "revision": "3a665d26a144fd7de706",
