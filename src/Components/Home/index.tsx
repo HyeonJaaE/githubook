@@ -11,40 +11,38 @@ const Home = (props: any) => {
     const auth = useSelector((state: any) => state.auth);
 
     useEffect(() => {
-        let access_token = window.location.search.split("=")[1];
-        if (access_token) {
+        let client_code = window.location.search.split("=")[1];
+        let data = {
+            code: client_code,
+            client_id: "504c566c0230964f360d",
+            client_secret: "e6821d09a158291b5704634c2f49052d50a6e278",
+        }
+        let header = {
+            "Access-Control-Allow-Origin":"*",
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS'
+        }
+        if (client_code) {
             axios
-                .post(
-                    "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
-                    {
-                        code: window.location.search.split("=")[1],
-                        client_id: "504c566c0230964f360d",
-                        client_secret: "e6821d09a158291b5704634c2f49052d50a6e278",
-                    },
-                    {
-                        headers: {
-                            accept: "application/json",
-                        },
-                    }
-                )
+                .post( "https://github.com/login/oauth/access_token", data, {headers:header})
                 .then((res) => {
-                    console.log(res);
+                    console.log("res", res);
                     dispatch(setCurrentUser(res.data.access_token));
                     localStorage.setItem("token", res.data.access_token);
                     props.history.push("/");
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => console.log("err", err));
         }
     }, []);
+
     return (
         <>
             {auth.user ? (
                 <Githubook />
             ) : (
                 <div id="home-container">
-                    {/*<a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=http://localhost:3000&scope=repo">
+                    <a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=http://localhost:3000&scope=repo">
                         dev
-            </a>*/}
+                    </a>
                     <a href="https://github.com/login/oauth/authorize?client_id=504c566c0230964f360d&redirect_uri=https://hyeonjaae.github.io/githubook&scope=repo">
                         <img
                             src="https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/276/square_480/github_logo.png"
