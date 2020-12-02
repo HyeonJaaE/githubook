@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/githubook/static/css/main.abafeb88.chunk.css",
-    "main.js": "/githubook/static/js/main.662a6a89.chunk.js",
-    "main.js.map": "/githubook/static/js/main.662a6a89.chunk.js.map",
+    "main.js": "/githubook/static/js/main.3dd518b0.chunk.js",
+    "main.js.map": "/githubook/static/js/main.3dd518b0.chunk.js.map",
     "runtime-main.js": "/githubook/static/js/runtime-main.2c14a14a.js",
     "runtime-main.js.map": "/githubook/static/js/runtime-main.2c14a14a.js.map",
     "static/css/2.829c9cb5.chunk.css": "/githubook/static/css/2.829c9cb5.chunk.css",
-    "static/js/2.bdd6c318.chunk.js": "/githubook/static/js/2.bdd6c318.chunk.js",
-    "static/js/2.bdd6c318.chunk.js.map": "/githubook/static/js/2.bdd6c318.chunk.js.map",
+    "static/js/2.bac6f3e3.chunk.js": "/githubook/static/js/2.bac6f3e3.chunk.js",
+    "static/js/2.bac6f3e3.chunk.js.map": "/githubook/static/js/2.bac6f3e3.chunk.js.map",
     "index.html": "/githubook/index.html",
-    "precache-manifest.43e922c033d35c1d3fceab83623bd7da.js": "/githubook/precache-manifest.43e922c033d35c1d3fceab83623bd7da.js",
+    "precache-manifest.3ba333a816e8cc44b27210665a64ae89.js": "/githubook/precache-manifest.3ba333a816e8cc44b27210665a64ae89.js",
     "service-worker.js": "/githubook/service-worker.js",
     "static/css/2.829c9cb5.chunk.css.map": "/githubook/static/css/2.829c9cb5.chunk.css.map",
     "static/css/main.abafeb88.chunk.css.map": "/githubook/static/css/main.abafeb88.chunk.css.map",
-    "static/js/2.bdd6c318.chunk.js.LICENSE.txt": "/githubook/static/js/2.bdd6c318.chunk.js.LICENSE.txt"
+    "static/js/2.bac6f3e3.chunk.js.LICENSE.txt": "/githubook/static/js/2.bac6f3e3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2c14a14a.js",
     "static/css/2.829c9cb5.chunk.css",
-    "static/js/2.bdd6c318.chunk.js",
+    "static/js/2.bac6f3e3.chunk.js",
     "static/css/main.abafeb88.chunk.css",
-    "static/js/main.662a6a89.chunk.js"
+    "static/js/main.3dd518b0.chunk.js"
   ]
 }
