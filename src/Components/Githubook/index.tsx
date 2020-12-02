@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-
 import Card from "../Card";
 import getGithubInfo, { GithubProfile } from "../../api/getGithubInfo";
 import { getGithubFollower, getGithubFollowing, GithubFollow } from "../../api/getGithubFollow";
@@ -47,7 +46,6 @@ const Githubook = (props: any) => {
     const [idx, setIdx] = useState(10);
 
     useEffect(() => {
-        console.log(auth.user);
         getGithubInfo(auth.user).then((info) => {
             let eventList: any = [],
                 idx = 0;
@@ -116,6 +114,7 @@ const Githubook = (props: any) => {
     const logout = () => {
         localStorage.removeItem("token");
     };
+
     return (
         <div id="githubook-container">
             {data && (
@@ -123,7 +122,6 @@ const Githubook = (props: any) => {
                     <Nav data={data} handleEventType={handleEventType} />
                     <div id="githubook-body">
                         <div id="githubook-side-l">
-                            <button onClick={logout}>logout</button>
                             {[
                                 [data.avatar_url, data.login, "circle", "/githubook"],
                                 [
@@ -155,6 +153,9 @@ const Githubook = (props: any) => {
                                     {menubox(md[0], md[1], md[2])}
                                 </a>
                             ))}
+                            <a href="http://localhost:3000" onClick={logout}>
+                                &nbsp;&nbsp;&nbsp;logout test
+                            </a>
                             {sideToggle ? (
                                 <>
                                     {[

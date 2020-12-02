@@ -6,11 +6,7 @@ import Home from "./Components/Home";
 
 const App = () => {
     const dispatch = useDispatch();
-    const token = localStorage.getItem("token");
-    if (token != "undefined") {
-        dispatch(setCurrentUser(localStorage.getItem("token")));
-    }
-
+    dispatch(setCurrentUser(localStorage.getItem("token")));
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <Route exact path="/" component={Home} />
