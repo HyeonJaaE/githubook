@@ -36,7 +36,7 @@ export const infoBox = (avatar: string, name: string) => {
     );
 };
 
-const Githubook = () => {
+const Githubook = (props: any) => {
     const auth = useSelector((state: any) => state.auth);
 
     const [sideToggle, setSideToggle] = useState(false);
@@ -47,6 +47,7 @@ const Githubook = () => {
     const [idx, setIdx] = useState(10);
 
     useEffect(() => {
+        console.log(auth.user);
         getGithubInfo(auth.user).then((info) => {
             let eventList: any = [],
                 idx = 0;
@@ -112,6 +113,9 @@ const Githubook = () => {
         setIdx(10);
     };
 
+    const logout = () => {
+        localStorage.removeItem("token");
+    };
     return (
         <div id="githubook-container">
             {data && (
@@ -119,6 +123,7 @@ const Githubook = () => {
                     <Nav data={data} handleEventType={handleEventType} />
                     <div id="githubook-body">
                         <div id="githubook-side-l">
+                            <button onClick={logout}>logout</button>
                             {[
                                 [data.avatar_url, data.login, "circle", "/githubook"],
                                 [

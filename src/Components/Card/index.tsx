@@ -10,7 +10,6 @@ import { addGithubComment } from "../../api/addGithubComment";
 const Card = (props: any) => {
     const auth = useSelector((state: any) => state.auth);
     const [comment, setComment] = useState({});
-    let editor: any;
 
     let dateA = printDate(props.e.created_at),
         dateB = [dateA[0][1], dateA[0][2], dateA[0][4], dateA[0][5], dateA[0][6], dateA[0][7]];

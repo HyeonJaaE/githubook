@@ -1,18 +1,16 @@
 import axios from "axios";
 
-const getGithubInfo =  (username: string| null ) => {
-    /*const response = await axios.get<GithubProfile>(
-        `https://api.github.com/users/${username}`
-    );*/
+const getGithubInfo = (username: string | null) => {
+    const config = {
+        headers: {
+            Authorization: `token ${username}`,
+        },
+    };
 
-    return axios.get<GithubProfile>(
-        `https://api.github.com/user` ,  {
-            headers: {
-              Authorization: `token ${username}`,
-            },
-          }
-    );
-}
+    return axios.get<GithubProfile>(`https://api.github.com/user`, config);
+
+    /*const response = await axios.get<GithubProfile>(`https://api.github.com/users/${username}`);*/
+};
 
 export interface GithubProfile {
     login?: string;
@@ -47,6 +45,5 @@ export interface GithubProfile {
     created_at?: Date;
     updated_at?: Date;
 }
-
 
 export default getGithubInfo;

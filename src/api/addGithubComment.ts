@@ -1,16 +1,15 @@
 import axios from "axios";
 
-export const addGithubComment = (url: any, commentBody:string, token: string) => {
+export const addGithubComment = (url: any, commentBody: string, token: string) => {
     const data = {
-        body: commentBody
-    }
+        body: commentBody,
+    };
     const config = {
-        headers: { 
+        headers: {
             Authorization: `token ${token}`,
-            accept: `application/vnd.github.v3+json`
-        }
-    }
+            accept: `application/vnd.github.v3+json`,
+        },
+    };
 
     return axios.post(url, data, config);
-}
-
+};
