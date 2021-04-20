@@ -30,33 +30,6 @@
 ---
 
 
-## Redux
-
-`useDispatch` , `useSelector`를 사용하여 구현하였다.
-access Token을 전달받아 Store에 저장하였다.
-
-
-```
-axios.post(
-    "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
-    {
-        code: window.location.search.split("=")[1],
-        client_id: "504c566c0230964f360d",
-        client_secret: "e6821d09a158291b5704634c2f49052d50a6e278",
-    },
-    {
-        headers: {
-            accept: "application/json",
-        },
-    }).then((res) => {
-        dispatch(setCurrentUser(res.data.access_token));
-        props.history.push("/");
-    }).catch((err) => console.log(err));
-```
-`https://github.com/login/oauth/access_token`에 Oauth 정보를 POST하여 access_token을 전달받았다.
-
----
-
 ## Stylesheet
 
 Scss을 사용하여 반응형 디자인 구현하였다.
